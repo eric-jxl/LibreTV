@@ -37,8 +37,8 @@ async function checkForUpdates() {
         // 获取最新版本
         let latestVersion;
         const VERSION_URL = {
-            PROXY: 'https://gh-proxy.com/raw.githubusercontent.com/eric-jxl/LibreTV/main/VERSION.txt',
-            DIRECT: 'https://raw.githubusercontent.com/LibreSpark/eric-jxl/main/VERSION.txt'
+            PROXY: 'https://cdn.jsdelivr.net/gh/eric-jxl/LibreTV@refs/heads/main/VERSION.txt',
+            DIRECT: 'https://raw.githubusercontent.com/eric-jxl/LibreTV/refs/heads/main/VERSION.txt'
         };
         const FETCH_TIMEOUT = 1500;
         
