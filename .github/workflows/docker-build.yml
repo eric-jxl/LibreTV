@@ -28,7 +28,7 @@ jobs:
         run: |
           if [ "${{ github.repository }}" = "eric-jxl/LibreTV" ]; then
             echo "IMAGE_NAME=libretv" >> $GITHUB_OUTPUT
-            echo "TAGS=ghcr.io/${{ github.actor }}/libretv:latest,ghcr.io/${{ github.actor }}/libretv:${{ steps.version.outputs.VERSION }}" >> $GITHUB_OUTPUT
+            echo "TAGS=ghcr.io/${{ github.actor }}/libretv:${{ steps.version.outputs.VERSION }},ghcr.io/${{ github.actor }}/libretv:latest" >> $GITHUB_OUTPUT
           else
             echo "IMAGE_NAME=libretv-beta" >> $GITHUB_OUTPUT
             echo "TAGS=ghcr.io/${{ github.actor }}/libretv-beta:latest" >> $GITHUB_OUTPUT
@@ -69,7 +69,7 @@ jobs:
           file: Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/libretv:latest
             ${{ secrets.DOCKER_USERNAME }}/libretv:${{steps.version.outputs.VERSION}}
+            ${{ secrets.DOCKER_USERNAME }}/libretv:latest
 
           platforms: linux/amd64,linux/arm64/v8,linux/arm/v7
