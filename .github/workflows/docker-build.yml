@@ -92,3 +92,22 @@ jobs:
             registry.cn-shanghai.aliyuncs.com/web-jxl/libretv:latest
 
           platforms: linux/amd64,linux/arm64
+          
+      - name: Login to Aliyun YMMOS ACR
+        uses: docker/login-action@v3
+        with:
+          registry: crpi-1u4ypqi16i6lm4b5.cn-shanghai.personal.cr.aliyuncs.com
+          username: ${{ secrets.YMMOS_ACR_USERNAME }}
+          password: ${{ secrets.YMMOS_ACR_PASSWORD }}
+
+      - name: Build and push LibreTV Images To ACR
+        uses: docker/build-push-action@v6.14.0
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: |
+            crpi-1u4ypqi16i6lm4b5.cn-shanghai.personal.cr.aliyuncs.com/ymmos/libretv:${{steps.version.outputs.VERSION}}
+            crpi-1u4ypqi16i6lm4b5.cn-shanghai.personal.cr.aliyuncs.com/ymmos/libretv:latest
+
+          platforms: linux/amd64,linux/arm64
