@@ -199,7 +199,7 @@ function initPasswordProtection() {
                 e.preventDefault();
                 e.stopPropagation();
                 showPasswordModal();
-                return;
+
             }
             
         });

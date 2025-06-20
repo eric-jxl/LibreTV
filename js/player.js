@@ -448,7 +448,7 @@ function initPlayer(videoUrl) {
         muted: false,
         autoplay: true,
         pip: true,
-        autoSize: false,
+        autoSize: true,
         autoMini: true,
         screenshot: true,
         setting: true,
@@ -580,7 +580,35 @@ function initPlayer(videoUrl) {
                     document.getElementById('player-loading').style.display = 'none';
                 });
             }
-        }
+        },
+        plugins: [
+            artplayerPluginAds({
+                // html广告，假如是视频广告则忽略该值
+                // html: '<img src="" alt="ads">',
+
+                // 视频广告的地址
+                video: 'https://cdn.jsdelivr.net/gh/eric-jxl/LibreTV@main/test.mp4',
+
+                // 广告跳转网址，为空则不跳转
+                url: 'http://lcygetname.cn',
+
+                // 必须观看的时长，期间不能被跳过，单位为秒
+                // 当该值大于或等于totalDuration时，不能提前关闭广告
+                // 当该值等于或小于0时，则随时都可以关闭广告
+                playDuration: 5,
+
+                // 广告总时长，单位为秒
+                totalDuration: 10,
+
+                // 多语言支持
+                i18n: {
+                    close: '关闭广告',
+                    countdown: '%s秒',
+                    detail: '查看详情',
+                    canBeClosed: '%s秒后可关闭广告',
+                },
+            }),
+        ],
     });
 
     // 自动隐藏工具栏的逻辑
@@ -657,6 +685,7 @@ function initPlayer(videoUrl) {
     // 播放器加载完成后初始隐藏工具栏
     art.on('ready', () => {
         art.controls.classList.add('art-controls-hide');
+        art.volume = 0.5;
     });
 
     // 全屏模式处理
@@ -1680,3 +1709,13 @@ async function switchToResource(sourceKey, vodId) {
         hideLoading();
     }
 }
+
+// fixme 广告被点击
+art.on('artplayerPluginAds:click', (ads) => {
+    console.info('广告被点击', ads);
+});
+
+// 广告被跳过
+art.on('artplayerPluginAds:skip', (ads) => {
+    console.info('广告被跳过', ads);
+});
